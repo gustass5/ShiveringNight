@@ -6,6 +6,7 @@ public class EnemyMovement : MonoBehaviour
 {
     public float speed = 2f;
     public float sensorRadius = 1f;
+    public LayerMask lightCone;
 
     private float currentSpeed;
     private int previousColliderLength = 0;
@@ -24,7 +25,7 @@ public class EnemyMovement : MonoBehaviour
     {
         // if(Vector2.Distance(transform.position, target.position) > 0.75f){
             transform.position = Vector2.MoveTowards(transform.position, target.position, currentSpeed * Time.deltaTime);
-            Collider2D[] col =  Physics2D.OverlapCircleAll(transform.position, sensorRadius);
+            Collider2D[] col =  Physics2D.OverlapCircleAll(transform.position, sensorRadius, lightCone);
             if(col.Length > 0 && (col.Length != previousColliderLength)){
                 isMoving = !isMoving;
                 if(isMoving){
